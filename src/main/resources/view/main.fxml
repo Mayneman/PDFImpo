@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <ScrollPane layoutX="40.0" layoutY="53.0" prefHeight="450.0" prefWidth="1158.0">
+               <content>
+                  <TableView fx:id="mainTable" prefHeight="452.0" prefWidth="1157.0">
+                     <columns>
+                        <TableColumn fx:id="inColumn" prefWidth="195.0" text="Hot Folder Name" />
+                        <TableColumn fx:id="outColumn" maxWidth="570.0" minWidth="-1.0" prefWidth="537.0" text="Output Path" />
+                        <TableColumn fx:id="qtyColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Sales Unit Qty" />
+                        <TableColumn fx:id="impoNupColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Impo N-up" />
+                        <TableColumn fx:id="stepAndRepeatColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Step &amp; Repeat" />
+                        <TableColumn fx:id="backsColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="No. of Backs" />
+                     </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <ButtonBar layoutX="934.0" layoutY="545.0" prefHeight="40.0" prefWidth="264.0">
+               <buttons>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#newAddWindow" prefHeight="23.0" prefWidth="116.0" text="Add Hot Folder" />
+                  <Button mnemonicParsing="false" onAction="#removeRow" prefHeight="23.0" prefWidth="116.0" text="Delete Selected" />
+               </buttons>
+            </ButtonBar>
+            <Circle fx:id="watcherStatColour" fill="#1fff20" layoutX="56.0" layoutY="30.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Circle>
+            <Text fx:id="watcherStatText" layoutX="77.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 Hot Folders Running" />
+            <ButtonBar layoutX="934.0" layoutY="618.0" prefHeight="40.0" prefWidth="264.0">
+               <buttons>
+                  <Button mnemonicParsing="false" onAction="#startWatchers" prefHeight="23.0" prefWidth="116.0" text="Start" />
+                  <Button mnemonicParsing="false" onAction="#stopWatchers" prefHeight="23.0" prefWidth="116.0" text="Stop" />
+               </buttons>
+            </ButtonBar>
+            <TextArea fx:id="activityLog" layoutX="42.0" layoutY="555.0" prefHeight="206.0" prefWidth="856.0">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <font>
+                  <Font size="11.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </opaqueInsets>
+            </TextArea>
+            <Text layoutX="42.0" layoutY="533.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity Log" />
+            <Button layoutX="1088.0" layoutY="726.0" mnemonicParsing="false" onAction="#newConfigWindow" text="Config Settings" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
