@@ -68,6 +68,7 @@ public class ProcessFolder {
             backJob(files);
             return;
         }
+
         files = getDirContents(sourceFolder);
         ArrayList<Integer> copyNums = findSortIterations(files.size());
         createTempFolders(copyNums);
@@ -192,20 +193,21 @@ public class ProcessFolder {
         tempFolder.mkdir();
         for(File file: files){
             try {
+                Document document = new Document();
+                PdfReader reader = new PdfReader(file.toPath().toString());
+                String fileName = file.toPath().toString();
+                fileName = fileName.substring(fileName.lastIndexOf('\\') + 1, fileName.lastIndexOf('.'));
+                PdfCopy copy = new PdfSmartCopy(document, new FileOutputStream(tempFolder + "\\" + fileName + ".pdf"));
+                document.open();
                 for(int page = 2; page <= backs+1; page++) {
-                    Document document = new Document();
-                    PdfReader reader = new PdfReader(file.toPath().toString());
-                    String fileName = file.toPath().toString();
-                    fileName = fileName.substring(fileName.lastIndexOf('\\') + 1, fileName.lastIndexOf('.'));
-                    PdfCopy copy = new PdfSmartCopy(document, new FileOutputStream(tempFolder + "\\" + fileName + "BACK " + page + ".pdf"));
-                    document.open();
                     PdfImportedPage startPage = copy.getImportedPage(reader, 1);
                     PdfImportedPage importedPage = copy.getImportedPage(reader, page);
                     copy.addPage(startPage);
                     copy.addPage(importedPage);
-                    document.close();
-                    reader.close();
+
                 }
+                document.close();
+                reader.close();
             } catch (Exception e){
                 System.out.println("Back job error.");
                 e.printStackTrace();
@@ -214,6 +216,8 @@ public class ProcessFolder {
         System.out.println("FINISHED BACKS, COMMENCING MERGE PDF");
         parent.newActivity("FINISHED BACKS, COMMENCING MERGE PDF");
         HotFolderConfig tempConfig = new HotFolderConfig(hotFolderConfig);
+        System.out.println(tempConfig.getUnitQuant());
+        tempConfig.setUnitQuant(tempConfig.getUnitQuant()/tempConfig.getBacks());
         tempConfig.setBacks(1);
         ProcessFolder processFolder = new ProcessFolder(tempFolder, tempConfig,tempFolder, eventPath, this.parent, true);
         processFolder.run();
@@ -229,23 +233,21 @@ public class ProcessFolder {
         int partNum;
         //TEMP
         if (copyNums.get(0) == 0 && sheetsRequired(copyNums.get(1)) < unitQuant && !hotFolderConfig.getStepAndRepeat()) {
-            partNum = sheetsRequired(copyNums.get(1))/hotFolderConfig.getOriginalBacks();
+            partNum = (int) Math.ceil(sheetsRequired(copyNums.get(1))/(double) hotFolderConfig.getOriginalBacks());
             secondTemp = new File(tempFolder + " run_" + partNum);
             partFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + partNum +".pdf";
             createNewFolder(secondTemp);
         }
         //FULL
         else if (copyNums.get(1) == 0 || sheetsRequired(copyNums.get(1)).equals(unitQuant) || hotFolderConfig.getStepAndRepeat()) {
-            fullNum = (int) Math.ceil((double)unitQuant/impoNup);
-            fullTemp = new File(tempFolder + " run_" + fullNum);
-            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + fullNum +".pdf";
+            fullTemp = new File(tempFolder + " run_" + unitQuant);
+            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + unitQuant +".pdf";
             createNewFolder(fullTemp);
         } else {
             //BOTH
-            fullNum = unitQuant/hotFolderConfig.getOriginalBacks();
-            partNum = sheetsRequired(copyNums.get(1))/hotFolderConfig.getOriginalBacks();
-            fullTemp = new File(tempFolder + " run_" + fullNum);
-            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + fullNum +".pdf";
+            partNum = (int) Math.ceil(sheetsRequired(copyNums.get(1))/(double) hotFolderConfig.getOriginalBacks());
+            fullTemp = new File(tempFolder + " run_" + unitQuant);
+            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + unitQuant +".pdf";
             createNewFolder(fullTemp);
             secondTemp = new File(tempFolder + " run_" + partNum);
             partFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + partNum +".pdf";

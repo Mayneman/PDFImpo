@@ -4,69 +4,56 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="350.0">
-         <children>
-            <GridPane layoutY="-1.0" prefHeight="162.0" prefWidth="353.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="80.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="196.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="77.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+      <BorderPane prefHeight="253.0" prefWidth="560.0">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="40.0" />
+         </VBox.margin>
+         <center>
+            <GridPane prefHeight="266.0" prefWidth="560.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="20.0" percentWidth="0.0" prefWidth="20.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="20.0" prefWidth="20.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="20.0" prefWidth="20.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Input Parent">
-                     <GridPane.margin>
-                        <Insets left="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp Folder" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <TextField fx:id="inputSource" GridPane.columnIndex="1" />
-                  <TextField fx:id="tempSource" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="chooseOut" mnemonicParsing="false" onAction="#chooseTempSource" text="Choose" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#chooseInputSource" text="Choose" GridPane.columnIndex="2">
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Polling Delay" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <TextField fx:id="timeDelay" prefHeight="25.0" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets right="140.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seconds" wrappingWidth="46.9375" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="65.0" />
-                     </GridPane.margin>
-                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hot Folder Parent Folder" wrappingWidth="100.0" GridPane.columnIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PDF Output Path" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hot Folder Polling Delay" wrappingWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="inputSource" GridPane.columnIndex="2" />
+                  <TextField fx:id="tempSource" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#chooseInputSource" text="Choose" GridPane.columnIndex="4" />
+                  <Button fx:id="chooseOut" mnemonicParsing="false" onAction="#chooseTempSource" text="Choose" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <children>
+                        <TextField fx:id="timeDelay" layoutX="3.0" layoutY="5.0" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+                        <Text layoutX="72.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seconds" wrappingWidth="66.9375" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="okButton" maxWidth="64.0" minWidth="64.0" mnemonicParsing="false" onAction="#configOK" prefWidth="64.0" text="OK" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <Button fx:id="okButton" layoutX="142.0" layoutY="188.0" mnemonicParsing="false" onAction="#configOK" prefHeight="25.0" prefWidth="70.0" text="OK" />
-         </children>
-      </AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </VBox>

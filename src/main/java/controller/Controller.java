@@ -121,7 +121,7 @@ public class Controller extends CommonController{
             addController.setParent(this);
             stage = new Stage();
             stage.setTitle("Add Row");
-            stage.setScene(new Scene(root, 350, 400));
+            stage.setScene(new Scene(root, 600, 400));
             stage.show();
         }
         catch (IOException e) {
@@ -138,7 +138,7 @@ public class Controller extends CommonController{
             editController.setCurrentHotFolder(hotFolderConfig);
             stage = new Stage();
             stage.setTitle("Edit Row");
-            stage.setScene(new Scene(root, 350, 400));
+            stage.setScene(new Scene(root, 600, 400));
             stage.show();
         }
         catch (IOException e) {
@@ -168,7 +168,7 @@ public class Controller extends CommonController{
             configController.setParent(this);
             stage = new Stage();
             stage.setTitle("Config");
-            stage.setScene(new Scene(root, 350, 400));
+            stage.setScene(new Scene(root, 600, 238));
             stage.show();
         }
         catch (IOException e) {
@@ -236,7 +236,7 @@ public class Controller extends CommonController{
     private void stopWatchers(){
         watcher.stopAllWatchers();
         flasher.stop();
-        watcherStatColour.setFill(Color.LIGHTGREY);
+        watcherStatColour.setFill(Color.RED);
         watchersRunning = 0;
         watcherStatText.setText(watchersRunning + " Watchers Running");
 

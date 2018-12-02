@@ -20,7 +20,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/main.fxml"));
         primaryStage.setTitle("Impo Application");
-        primaryStage.setScene(new Scene(root,640,400));
+        primaryStage.setScene(new Scene(root,1280,800));
         primaryStage.show();
     }
 
