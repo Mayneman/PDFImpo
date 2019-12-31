@@ -244,6 +244,6 @@ public class Controller extends CommonController{
     }
 
     public void newActivity(String string){
-        activityLog.setText(string + '\n' +activityLog.getText());
+        activityLog.setText(string + '\n' + activityLog.getText());
     }
 }

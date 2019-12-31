@@ -55,7 +55,7 @@ public class EditController extends CommonController{
     }
 
     public void addRowOk() {
-        File fI = new File(parent.config.getInputSource().toPath().toString() + '\\' +inputFolder.getText());
+        File fI = new File(parent.config.getInputSource().toPath().toString() + File.separator + inputFolder.getText());
         File fO = new File(outputFolder.getText());
 
         boolean notValid = false;

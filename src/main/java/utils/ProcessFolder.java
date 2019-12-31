@@ -140,8 +140,8 @@ public class ProcessFolder {
     private void moveFiles(ArrayList<File> files){
         for(Integer i = 0; i < files.size(); i++){
             String fileName = files.get(i).getPath();
-            fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
-            fileName = fullTemp + "\\" + fileName;
+            fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+            fileName = fullTemp + File.separator + fileName;
             try {
                 Files.copy(files.get(i).toPath(), new File(fileName).toPath());
             } catch (IOException e){
@@ -158,8 +158,8 @@ public class ProcessFolder {
             String fullTempString = fullTemp.getPath();
             try {
                 fileName = files.get(fullImpNum * impoNup + iterationNum).getPath();
-                fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
-                fileName = fullTempString + "\\" + fileName;
+                fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+                fileName = fullTempString + File.separator + fileName;
                 Files.copy(files.get(fullImpNum * impoNup + iterationNum).toPath(),new File(fileName).toPath());
             } catch (IOException e){
                 e.printStackTrace();
@@ -177,8 +177,8 @@ public class ProcessFolder {
             while (partImpNum > 0) {
                 try {
                     fileName = files.get(copyNums.get(0) * impoNup + partImpNum - 1).getPath();
-                    fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
-                    fileName = partTempString + "\\" + fileName.substring(0, fileName.length() -4) + count + fileName.substring(fileName.length()-4);
+                    fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+                    fileName = partTempString + File.separator + fileName.substring(0, fileName.length() -4) + count + fileName.substring(fileName.length()-4);
                     Files.copy(files.get(copyNums.get(0) * impoNup + partImpNum - 1).toPath(), new File(fileName).toPath());
                 }catch (IOException e) {
                     e.printStackTrace();
@@ -196,8 +196,8 @@ public class ProcessFolder {
                 Document document = new Document();
                 PdfReader reader = new PdfReader(file.toPath().toString());
                 String fileName = file.toPath().toString();
-                fileName = fileName.substring(fileName.lastIndexOf('\\') + 1, fileName.lastIndexOf('.'));
-                PdfCopy copy = new PdfSmartCopy(document, new FileOutputStream(tempFolder + "\\" + fileName + ".pdf"));
+                fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1, fileName.lastIndexOf('.'));
+                PdfCopy copy = new PdfSmartCopy(document, new FileOutputStream(tempFolder + File.separator + fileName + ".pdf"));
                 document.open();
                 for(int page = 2; page <= backs+1; page++) {
                     PdfImportedPage startPage = copy.getImportedPage(reader, 1);
@@ -235,22 +235,22 @@ public class ProcessFolder {
         if (copyNums.get(0) == 0 && sheetsRequired(copyNums.get(1)) < unitQuant && !hotFolderConfig.getStepAndRepeat()) {
             partNum = (int) Math.ceil(sheetsRequired(copyNums.get(1))/(double) hotFolderConfig.getOriginalBacks());
             secondTemp = new File(tempFolder + " run_" + partNum);
-            partFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + partNum +".pdf";
+            partFolderName = destFolder.toPath() + File.separator + eventPath + " run_" + partNum +".pdf";
             createNewFolder(secondTemp);
         }
         //FULL
         else if (copyNums.get(1) == 0 || sheetsRequired(copyNums.get(1)).equals(unitQuant) || hotFolderConfig.getStepAndRepeat()) {
             fullTemp = new File(tempFolder + " run_" + unitQuant);
-            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + unitQuant +".pdf";
+            fullFolderName = destFolder.toPath() + File.separator + eventPath + " run_" + unitQuant +".pdf";
             createNewFolder(fullTemp);
         } else {
             //BOTH
             partNum = (int) Math.ceil(sheetsRequired(copyNums.get(1))/(double) hotFolderConfig.getOriginalBacks());
             fullTemp = new File(tempFolder + " run_" + unitQuant);
-            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + unitQuant +".pdf";
+            fullFolderName = destFolder.toPath() + File.separator + eventPath + " run_" + unitQuant +".pdf";
             createNewFolder(fullTemp);
             secondTemp = new File(tempFolder + " run_" + partNum);
-            partFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + partNum +".pdf";
+            partFolderName = destFolder.toPath() + File.separator + eventPath + " run_" + partNum +".pdf";
             createNewFolder(secondTemp);
         }
 
@@ -317,5 +317,4 @@ public class ProcessFolder {
             e.printStackTrace();
         }
     }
-
 }
