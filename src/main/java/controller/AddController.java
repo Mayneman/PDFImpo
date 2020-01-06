@@ -52,7 +52,7 @@ public class AddController extends CommonController{
         } else {
             configError.setVisible(false);
         }
-        File fI = new File(parent.config.getInputSource().toPath().toString() + '\\' +inputFolder.getText());
+        File fI = new File(parent.config.getInputSource().toPath().toString() + File.separator +inputFolder.getText());
         File fO = new File(outputFolder.getText());
         boolean notValid = false;
         notValid = checkInput(fI, inputFolder);

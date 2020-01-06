@@ -92,11 +92,11 @@ public class Watcher {
     }
 
     private void processFolder(File sourceFolder, Path eventPath, File tempFolder, HotFolderConfig hotFolderConfig) throws InterruptedException{
-        System.out.println(sourceFolder.toPath() + "\\" + eventPath);
-        watcherNewActivity(sourceFolder.toPath() + "\\" + eventPath);
-        isCompletelyWritten(new File(sourceFolder.toPath() + "\\" + eventPath));
-        File currentSource = new File(sourceFolder.toPath() + "\\" + eventPath);
-        File currentTemp = new File(tempFolder.toPath() + "\\" + eventPath);
+        System.out.println(sourceFolder.toPath() + File.separator + eventPath);
+        watcherNewActivity(sourceFolder.toPath() + File.separator + eventPath);
+        isCompletelyWritten(new File(sourceFolder.toPath() + File.separator + eventPath));
+        File currentSource = new File(sourceFolder.toPath() + File.separator + eventPath);
+        File currentTemp = new File(tempFolder.toPath() + File.separator + eventPath);
         ProcessFolder processFolder = new ProcessFolder(currentSource, hotFolderConfig, currentTemp, eventPath.toString(), this.parent, false);
         processFolder.run();
     }
