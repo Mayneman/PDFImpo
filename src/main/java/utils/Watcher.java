@@ -117,12 +117,10 @@ public class Watcher {
 
     private void isCompletelyWritten(File file) throws InterruptedException{
         Long fileSizeBefore = file.length();
+        System.out.println("Waiting for folder copy: " + timeDelay/1000 + " seconds");
+        watcherNewActivity("Waiting for " + timeDelay/1000 + " seconds");
         Thread.sleep(timeDelay);
         Long fileSizeAfter = file.length();
-        System.out.println("Waiting for folder to copy...");
-        watcherNewActivity("Waiting for folder to copy...");
-        System.out.println("Waiting for " + timeDelay/1000 + " seconds");
-        watcherNewActivity("Waiting for " + timeDelay/1000 + " seconds");
         if (!fileSizeBefore.equals(fileSizeAfter)) {
             isCompletelyWritten(file);
         } else {

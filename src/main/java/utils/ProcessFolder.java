@@ -191,23 +191,26 @@ public class ProcessFolder {
     
     private void backJob(ArrayList<File> files){
         tempFolder.mkdir();
+        int iterator = 0;
         for(File file: files){
+            iterator++;
             try {
-                Document document = new Document();
-                PdfReader reader = new PdfReader(file.toPath().toString());
-                String fileName = file.toPath().toString();
-                fileName = fileName.substring(fileName.lastIndexOf('\\') + 1, fileName.lastIndexOf('.'));
-                PdfCopy copy = new PdfSmartCopy(document, new FileOutputStream(tempFolder + "\\" + fileName + ".pdf"));
-                document.open();
                 for(int page = 2; page <= backs+1; page++) {
+                    Document document = new Document();
+                    PdfReader reader = new PdfReader(file.toPath().toString());
+                    String fileName = file.toPath().toString();
+                    fileName = fileName.substring(fileName.lastIndexOf('\\') + 1, fileName.lastIndexOf('.'));
+                    //Rename to different
+                    PdfCopy copy = new PdfSmartCopy(document, new FileOutputStream(tempFolder + "\\" + iterator + page + fileName + ".pdf"));
+                    document.open();
                     PdfImportedPage startPage = copy.getImportedPage(reader, 1);
                     PdfImportedPage importedPage = copy.getImportedPage(reader, page);
                     copy.addPage(startPage);
                     copy.addPage(importedPage);
-
+                    document.close();
+                    reader.close();
                 }
-                document.close();
-                reader.close();
+
             } catch (Exception e){
                 System.out.println("Back job error.");
                 e.printStackTrace();
@@ -216,8 +219,6 @@ public class ProcessFolder {
         System.out.println("FINISHED BACKS, COMMENCING MERGE PDF");
         parent.newActivity("FINISHED BACKS, COMMENCING MERGE PDF");
         HotFolderConfig tempConfig = new HotFolderConfig(hotFolderConfig);
-        System.out.println(tempConfig.getUnitQuant());
-        tempConfig.setUnitQuant(tempConfig.getUnitQuant()/tempConfig.getBacks());
         tempConfig.setBacks(1);
         ProcessFolder processFolder = new ProcessFolder(tempFolder, tempConfig,tempFolder, eventPath, this.parent, true);
         processFolder.run();
@@ -240,14 +241,16 @@ public class ProcessFolder {
         }
         //FULL
         else if (copyNums.get(1) == 0 || sheetsRequired(copyNums.get(1)).equals(unitQuant) || hotFolderConfig.getStepAndRepeat()) {
-            fullTemp = new File(tempFolder + " run_" + unitQuant);
-            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + unitQuant +".pdf";
+            fullNum = (int) Math.ceil((double) unitQuant/impoNup);
+            fullTemp = new File(tempFolder + " run_" + fullNum);
+            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + fullNum +".pdf";
             createNewFolder(fullTemp);
         } else {
             //BOTH
             partNum = (int) Math.ceil(sheetsRequired(copyNums.get(1))/(double) hotFolderConfig.getOriginalBacks());
-            fullTemp = new File(tempFolder + " run_" + unitQuant);
-            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + unitQuant +".pdf";
+            fullNum = (int) Math.ceil((double) unitQuant/hotFolderConfig.getOriginalBacks());
+            fullTemp = new File(tempFolder + " run_" + fullNum);
+            fullFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + fullNum +".pdf";
             createNewFolder(fullTemp);
             secondTemp = new File(tempFolder + " run_" + partNum);
             partFolderName = destFolder.toPath() + "\\" + eventPath + " run_" + partNum +".pdf";
